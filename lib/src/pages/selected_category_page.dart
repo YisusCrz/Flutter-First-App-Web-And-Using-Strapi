@@ -25,7 +25,7 @@ class SelectedCategoryPage extends StatelessWidget {
             onPressed: (){
               showSearch(
                 context: context,
-                delegate: Search()
+                delegate: Search( category: category )
               );
             },
             child: FaIcon(FontAwesomeIcons.search, color: Colors.white,),

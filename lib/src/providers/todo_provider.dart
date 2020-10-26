@@ -14,8 +14,19 @@ class TodoProvider {
     final resp = await http.get( url + category.toLowerCase() );
     final data = json.decode(resp.body);
 
-    final restaurants = new Todos.fromJsonList(data);
-    return restaurants.items;
+    final todos = new Todos.fromJsonList(data);
+    return todos.items;
+
+  }
+
+
+  Future<List<Todo>> getByName( String category, String parameter ) async {
+
+    final resp = await http.get( url + category.toLowerCase() + '?name_contains=' + parameter );
+    final data = json.decode( resp.body );
+
+    final catcheds = Todos.fromJsonList(data);
+    return catcheds.items;
 
   }
 
