@@ -1,47 +1,67 @@
 import 'package:flutter/material.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:practicing_strapi/src/search/search_delegate.dart';
 import 'package:practicing_strapi/src/models/restaurantes_model.dart';
 
 import 'package:practicing_strapi/src/providers/todo_provider.dart';
 
 
 class SelectedCategoryPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
+
+  final category = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Restaurantes'),
+        title: Text(category),
+        actions: [
+          MaterialButton(
+            shape: CircleBorder(),
+            onPressed: (){
+              showSearch(
+                context: context,
+                delegate: Search()
+              );
+            },
+            child: FaIcon(FontAwesomeIcons.search, color: Colors.white,),
+          )
+        ],
       ),
-      body: _todosList()
+      body: _todosList( category )
    );
   }
 }
 
-Widget _todosList(){
+Widget _todosList( String ctg ){
   return FutureBuilder(
-    future: todoProvider.getRestaurants(),
+    future: todoProvider.getData( ctg ),
     builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
       if(!snapshot.hasData){
         return Container();
       } 
-        return _list(snapshot, snapshot.data) ;
+        return _list(snapshot.data) ;
     },
   );
 }
 
-Widget _list( AsyncSnapshot<List> snapshot, List<Restaurante> restaurantes ){
+Widget _list( List<Todo> data ){
   return ListView.builder(
-    itemCount: snapshot.data.length,
+    itemCount: data.length,
     itemBuilder: ( BuildContext contextn, int index ){
       return ListTile(
-        title: Text(restaurantes[index].name),
-        subtitle: Text(restaurantes[index].description),
+        title: Text(data[index].name),
+        subtitle: Text(data[index].description),
         leading: FadeInImage(
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover,
+          width: 60,
+          height: 60,
+          fit: BoxFit.fill,
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('http://localhost:1337${restaurantes[index].images[0].url}'),
+          image: NetworkImage('http://localhost:1337${data[index].images[0].url}'),
         )
       );
     },

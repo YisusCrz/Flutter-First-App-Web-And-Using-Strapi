@@ -7,17 +7,19 @@ import 'package:practicing_strapi/src/models/restaurantes_model.dart';
 
 class TodoProvider {
 
-  String url = 'http://localhost:1337/restaurants';
+  String url = 'http://localhost:1337/';
 
-  Future<List<Restaurante>> getRestaurants() async {
+  Future<List<Todo>> getData( String category ) async {
 
-    final resp = await http.get(url);
+    final resp = await http.get( url + category.toLowerCase() );
     final data = json.decode(resp.body);
 
-    final restaurants = new Restaurantes.fromJsonList(data);
+    final restaurants = new Todos.fromJsonList(data);
     return restaurants.items;
 
   }
+
+
 
 }
 

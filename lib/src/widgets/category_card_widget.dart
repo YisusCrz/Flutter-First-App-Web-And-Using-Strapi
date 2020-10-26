@@ -25,7 +25,7 @@ class CategoryCard extends StatelessWidget {
       onTap: this.onTap,
       child: ElasticIn(
         child: Card(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.all(20),
           elevation: 20,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           clipBehavior: Clip.antiAlias,

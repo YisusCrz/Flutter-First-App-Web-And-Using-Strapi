@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class Restaurantes {
+class Todos {
 
-  List<Restaurante> items = new List();
+  List<Todo> items = new List();
 
-  Restaurantes();
+  Todos();
 
-  Restaurantes.fromJsonList( List<dynamic> jsonList  ) {
+  Todos.fromJsonList( List<dynamic> jsonList  ) {
 
     if ( jsonList == null ) return;
 
     for ( var item in jsonList  ) {
-      final restaurante = new Restaurante.fromJson(item);
-      items.add( restaurante );
+      final todo = new Todo.fromJson(item);
+      items.add( todo );
     }
 
   }
@@ -20,12 +20,12 @@ class Restaurantes {
 }
 
 
-List<Restaurante> restauranteFromJson(String str) => List<Restaurante>.from(json.decode(str).map((x) => Restaurante.fromJson(x)));
+List<Todo> todoFromJson(String str) => List<Todo>.from(json.decode(str).map((x) => Todo.fromJson(x)));
 
-String restauranteToJson(List<Restaurante> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String todoToJson(List<Todo> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Restaurante {
-    Restaurante({
+class Todo {
+    Todo({
         this.id,
         this.name,
         this.description,
@@ -39,7 +39,7 @@ class Restaurante {
     String contact;
     List<Image> images;
 
-    factory Restaurante.fromJson(Map<String, dynamic> json) => Restaurante(
+    factory Todo.fromJson(Map<String, dynamic> json) => Todo(
         id: json["id"],
         name: json["name"],
         description: json["description"],
