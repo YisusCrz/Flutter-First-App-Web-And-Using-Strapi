@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:practicing_strapi/src/models/restaurantes_model.dart';
+import 'package:practicing_strapi/src/models/todo_model.dart';
 
 import 'package:practicing_strapi/src/providers/todo_provider.dart';
 
 
-class Search extends SearchDelegate{
+class Search extends SearchDelegate<Todo>{
 
   final String category;
 
   Search({
-    @required this.category
+    @required this.category,
   });
 
   @override
@@ -41,7 +41,7 @@ class Search extends SearchDelegate{
         infinite: false,
         child: MaterialButton(
           shape: CircleBorder(),
-          onPressed: () => close( context, '' ),
+          onPressed: () => close( context, null ),
           child: FaIcon(FontAwesomeIcons.arrowLeft)
         ),
       );
@@ -101,7 +101,7 @@ class Search extends SearchDelegate{
               height: 50,
               fit: BoxFit.fill,
               placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage('http://localhost:1337${data[i].images[0].url}'),
+              image: NetworkImage('${data[i].images[0].url}'),
             ),
           ),
         );

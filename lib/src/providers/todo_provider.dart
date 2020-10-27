@@ -3,11 +3,11 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
-import 'package:practicing_strapi/src/models/restaurantes_model.dart';
+import 'package:practicing_strapi/src/models/todo_model.dart';
 
 class TodoProvider {
 
-  String url = 'http://localhost:1337/';
+  String url = 'https://penasco-guide-tourist.herokuapp.com/';
 
   Future<List<Todo>> getData( String category ) async {
 

@@ -26,33 +26,41 @@ String todoToJson(List<Todo> data) => json.encode(List<dynamic>.from(data.map((x
 
 class Todo {
     Todo({
+        this.images,
         this.id,
         this.name,
         this.description,
         this.contact,
-        this.images,
+        this.v,
+        this.todoId,
     });
 
-    int id;
+    List<Image> images;
+    String id;
     String name;
     String description;
     String contact;
-    List<Image> images;
+    int v;
+    String todoId;
 
     factory Todo.fromJson(Map<String, dynamic> json) => Todo(
-        id: json["id"],
+        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        id: json["_id"],
         name: json["name"],
         description: json["description"],
         contact: json["contact"],
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        v: json["__v"],
+        todoId: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "_id": id,
         "name": name,
         "description": description,
         "contact": contact,
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "__v": v,
+        "id": todoId,
     };
 }
 
@@ -62,105 +70,97 @@ class Image {
         this.name,
         this.alternativeText,
         this.caption,
-        this.width,
-        this.height,
-        this.formats,
         this.hash,
         this.ext,
         this.mime,
         this.size,
+        this.width,
+        this.height,
         this.url,
-        this.previewUrl,
+        this.formats,
         this.provider,
-        this.providerMetadata,
+        this.related,
         this.createdAt,
         this.updatedAt,
+        this.v,
+        this.imageId,
     });
 
-    int id;
+    String id;
     String name;
     String alternativeText;
     String caption;
-    int width;
-    int height;
-    Formats formats;
     String hash;
     String ext;
     String mime;
     double size;
+    int width;
+    int height;
     String url;
-    dynamic previewUrl;
+    Formats formats;
     String provider;
-    dynamic providerMetadata;
+    List<String> related;
     DateTime createdAt;
     DateTime updatedAt;
+    int v;
+    String imageId;
 
     factory Image.fromJson(Map<String, dynamic> json) => Image(
-        id: json["id"],
+        id: json["_id"],
         name: json["name"],
         alternativeText: json["alternativeText"],
         caption: json["caption"],
-        width: json["width"],
-        height: json["height"],
-        formats: Formats.fromJson(json["formats"]),
         hash: json["hash"],
         ext: json["ext"],
         mime: json["mime"],
         size: json["size"].toDouble(),
+        width: json["width"],
+        height: json["height"],
         url: json["url"],
-        previewUrl: json["previewUrl"],
+        formats: Formats.fromJson(json["formats"]),
         provider: json["provider"],
-        providerMetadata: json["provider_metadata"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        related: List<String>.from(json["related"].map((x) => x)),
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
+        imageId: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        "_id": id,
         "name": name,
         "alternativeText": alternativeText,
         "caption": caption,
-        "width": width,
-        "height": height,
-        "formats": formats.toJson(),
         "hash": hash,
         "ext": ext,
         "mime": mime,
         "size": size,
+        "width": width,
+        "height": height,
         "url": url,
-        "previewUrl": previewUrl,
+        "formats": formats.toJson(),
         "provider": provider,
-        "provider_metadata": providerMetadata,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "related": List<dynamic>.from(related.map((x) => x)),
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
+        "id": imageId,
     };
 }
 
 class Formats {
     Formats({
         this.thumbnail,
-        this.large,
-        this.medium,
-        this.small,
     });
 
     Thumbnail thumbnail;
-    Thumbnail large;
-    Thumbnail medium;
-    Thumbnail small;
 
     factory Formats.fromJson(Map<String, dynamic> json) => Formats(
         thumbnail: Thumbnail.fromJson(json["thumbnail"]),
-        large: json["large"] == null ? null : Thumbnail.fromJson(json["large"]),
-        medium: json["medium"] == null ? null : Thumbnail.fromJson(json["medium"]),
-        small: json["small"] == null ? null : Thumbnail.fromJson(json["small"]),
     );
 
     Map<String, dynamic> toJson() => {
         "thumbnail": thumbnail.toJson(),
-        "large": large == null ? null : large.toJson(),
-        "medium": medium == null ? null : medium.toJson(),
-        "small": small == null ? null : small.toJson(),
     };
 }
 

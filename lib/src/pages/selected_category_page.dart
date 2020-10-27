@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:practicing_strapi/src/search/search_delegate.dart';
-import 'package:practicing_strapi/src/models/restaurantes_model.dart';
+import 'package:practicing_strapi/src/models/todo_model.dart';
 
 import 'package:practicing_strapi/src/providers/todo_provider.dart';
 
@@ -61,7 +61,7 @@ Widget _list( List<Todo> data ){
           height: 60,
           fit: BoxFit.fill,
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('http://localhost:1337${data[index].images[0].url}'),
+          image: NetworkImage('${data[index].images[0].url}'),
         )
       );
     },
